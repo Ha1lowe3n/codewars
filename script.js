@@ -1,11 +1,20 @@
-// Complete the square sum function so that it squares each number passed into it and then sums the results together.
+// This time no story, no theory. The examples below show you how to write function accum:
 //
-// For example, for [1, 2, 2] it should return 9 because 1^2 + 2^2 + 2^2 = 9.
+// Examples:
+// accum("abcd") -> "A-Bb-Ccc-Dddd"
+// accum("RqaEzty") -> "R-Qq-Aaa-Eeee-Zzzzz-Tttttt-Yyyyyyy"
+// accum("cwAt") -> "C-Ww-Aaa-Tttt"
+// The parameter of accum is a string which includes only letters from a..z and A..Z.
 
-function squareSum(numbers) {
-    let sqSum = 0;
-    numbers.forEach((n) => (sqSum += n * n));
-    return sqSum;
+export function accum(s) {
+    const arr = s.split("");
+    const accumArr = [];
+    let itemArr;
+    for (let i = 0; i < arr.length; i++) {
+        itemArr = `${arr[i].toUpperCase()}${arr[i].toLowerCase().repeat(i)}`;
+        accumArr.push(itemArr);
+    }
+    return accumArr.join("-");
 }
 
-console.log(squareSum([1, 2, 3]));
+console.log(accum("ZpglnRxqenU"));
