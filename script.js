@@ -1,35 +1,29 @@
-// Digital root is the recursive sum of all the digits in a number.
-
-// Given n, take the sum of the digits of n. If that value has more than one digit,
-// continue reducing in this way until a single-digit number is produced.
-// The input will be a non-negative integer.
-
-// Examples
-// 16  -->  1 + 6 = 7
-//    942  -->  9 + 4 + 2 = 15  -->  1 + 5 = 6
-// 132189  -->  1 + 3 + 2 + 1 + 8 + 9 = 24  -->  2 + 4 = 6
-// 493193  -->  4 + 9 + 3 + 1 + 9 + 3 = 29  -->  2 + 9 = 11  -->  1 + 1 = 2
-
-function digital_root(n) {
-    const arr = n.toString().split("");
-    let result = 0;
-
-    arr.map((n) => (result += +n));
-
-    const rec = () => {
-        if (result.toString().length > 1) {
-            const newArr = result.toString().split("");
-            result = 0;
-            newArr.map((n) => (result += +n));
-            rec();
-        }
+function likes(names) {
+    const strs = {
+        0: "no one",
+        1: `${names}`,
+        2: `${names[0]} and ${names[1]}`,
+        3: `${names[0]}, ${names[1]} and ${names[2]}`,
+        more: `${names[0]}, ${names[1]} and ${names.length - 2}`,
     };
-    rec();
 
-    return result;
+    const s = names.length < 2 ? "s" : "";
+    const others = !strs[names.length] ? " others" : "";
+
+    return `${strs[names.length] || strs["more"]}${others} like${s} this`;
 }
 
-console.log(digital_root(16));
-console.log(digital_root(942));
-console.log(digital_root(132189));
-console.log(digital_root(493193));
+// 'no one likes this'
+console.log(likes([]));
+
+// 'Peter likes this'
+console.log(likes(["Peter"]));
+
+// 'Jacob and Alex like this'
+console.log(likes(["Jacob", "Alex"]));
+
+// 'Max, John and Mark like this'
+console.log(likes(["Max", "John", "Mark"]));
+
+// 'Alex, Jacob and 2 others like this'
+console.log(likes(["Alex", "Jacob", "Mark", "Max"]));
